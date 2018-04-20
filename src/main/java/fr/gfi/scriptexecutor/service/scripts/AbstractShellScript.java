@@ -1,5 +1,7 @@
 package fr.gfi.scriptexecutor.service.scripts;
 
+import java.io.IOException;
+import java.lang.ProcessBuilder.Redirect;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,12 +14,7 @@ import lombok.Setter;
 public abstract class AbstractShellScript implements ShellScript {
 	public static final String EXECUTE_SCRIPT = "/bin/bash/";
 
-	protected List<String> argsOrder;
 	protected IContext context;
-
-	public AbstractShellScript() {
-		argsOrder = new ArrayList<>();
-	}
 
 	public boolean canRun() {
 		return areArgsValid() && shellScriptExists();
@@ -31,12 +28,15 @@ public abstract class AbstractShellScript implements ShellScript {
 		commands.add(EXECUTE_SCRIPT);
 		commands.add(getScriptName());
 
-		argsOrder.stream().forEach(arg -> {
-			commands.add(context.getArgs().get(arg));
-		});
-
 		ProcessBuilder pb = new ProcessBuilder(commands);
-
+		pb.environment().putAll(context.getArgs());
+		pb.redirectErrorStream(true);
+		pb.redirectOutput(Redirect.INHERIT);
+		try {
+			pb.start();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return result;
 	}
 

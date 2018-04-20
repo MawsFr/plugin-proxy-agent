@@ -1,7 +1,5 @@
 package fr.gfi.scriptexecutor.service.scripts;
 
-import java.util.List;
-
 import fr.gfi.scriptexecutor.service.context.IContext;
 
 /**
@@ -19,14 +17,6 @@ public interface ShellScript {
 	 * @return An object containing the message in JSON format : {message, exitcode}
 	 */
 	ExecutionResult execute(IContext context);
-
-	/**
-	 * Gets an ordered list of args to know in which order to pass the script
-	 * arguments
-	 * 
-	 * @return
-	 */
-	List<String> getArgsOrder();
 
 	/**
 	 * @return True if the script can be run
