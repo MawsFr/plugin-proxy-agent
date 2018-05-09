@@ -9,6 +9,8 @@ import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import fr.gfi.scriptexecutor.service.context.IContext;
 import lombok.Getter;
 import lombok.Setter;
@@ -41,6 +43,8 @@ public abstract class AbstractShellScript implements ShellScript {
 		try {
 			String output = IOUtils.toString(pb.start().getInputStream(), "UTF-8");
 			logger.info(output);
+			ObjectMapper mapper = new ObjectMapper();
+			result = mapper.readValue(output, ExecutionResult.class);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
