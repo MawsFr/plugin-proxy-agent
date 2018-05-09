@@ -8,5 +8,7 @@ import fr.gfi.scriptexecutor.service.scripts.ExecutionResult;
 @Component
 public interface ScriptExecutorService {
 	ExecutionResult execute(IContext context);
-	
+
+	void initScripts();
+
 }

@@ -12,5 +12,6 @@ import lombok.Setter;
 public class ExecutionResult {
 
 	protected String message;
+	protected String exitCode;
 
 }
