@@ -33,4 +33,9 @@ public interface ShellScript {
 	 * @return True if the script file exists
 	 */
 	boolean shellScriptExists();
+
+	/**
+	 * @return The script name depending on the scriptId (by default : scriptId.sh)
+	 */
+	String getScriptName();
 }

@@ -12,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public abstract class AbstractShellScript implements ShellScript {
-	public static final String EXECUTE_SCRIPT = "/bin/bash/";
+	public static final String EXECUTE_SCRIPT = "/bin/bash";
 
 	protected IContext context;
 

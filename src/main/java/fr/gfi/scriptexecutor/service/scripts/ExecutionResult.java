@@ -11,7 +11,13 @@ import lombok.Setter;
 @Setter
 public class ExecutionResult {
 
+	/**
+	 * The message to display in the front.
+	 */
 	protected String message;
+	/**
+	 * The exit code of the script.
+	 */
 	protected String exitCode;
 
 }
