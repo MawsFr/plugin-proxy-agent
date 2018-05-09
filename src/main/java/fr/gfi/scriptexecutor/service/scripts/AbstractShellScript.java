@@ -40,7 +40,7 @@ public abstract class AbstractShellScript implements ShellScript {
 		pb.redirectOutput(Redirect.INHERIT);
 		try {
 			String output = IOUtils.toString(pb.start().getInputStream(), "UTF-8");
-			logger.debug(output);
+			logger.info(output);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
