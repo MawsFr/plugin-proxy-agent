@@ -1,2 +1,2 @@
 #!/bin/bash
-echo "{message: \"test ok\", exitCode: 0}"
+echo {message: \"test ok\", exitCode: 0}
