@@ -1,7 +1,6 @@
 package fr.gfi.scriptexecutor.resource;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -30,8 +29,8 @@ public class ScriptExecutorResourceTest extends AbstractMvcTest {
 	public void executeSucess() throws Exception {
 		this.mockMvc
 				.perform(post("/testsuccess").contentType(MediaType.APPLICATION_JSON).content(json(new HashMap<>())))
-				.andExpect(status().isOk()).andExpect(content().contentType(MediaType.APPLICATION_JSON))
-				.andExpect(jsonPath("$.message").value("test ok")).andExpect(jsonPath("$.exitCode").value("0"));
+				.andExpect(status().isOk()).andExpect(jsonPath("$.message").value("test ok"))
+				.andExpect(jsonPath("$.exitCode").value("0"));
 
 	}
 

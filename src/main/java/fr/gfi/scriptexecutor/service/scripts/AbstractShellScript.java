@@ -5,6 +5,10 @@ import java.lang.ProcessBuilder.Redirect;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import fr.gfi.scriptexecutor.service.context.IContext;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,6 +16,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public abstract class AbstractShellScript implements ShellScript {
+	private static final Logger logger = LoggerFactory.getLogger(AbstractShellScript.class);
+
 	public static final String EXECUTE_SCRIPT = "/bin/bash";
 
 	protected IContext context;
@@ -33,7 +39,8 @@ public abstract class AbstractShellScript implements ShellScript {
 		pb.redirectErrorStream(true);
 		pb.redirectOutput(Redirect.INHERIT);
 		try {
-			pb.start();
+			String output = IOUtils.toString(pb.start().getInputStream(), "UTF-8");
+			logger.debug(output);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
