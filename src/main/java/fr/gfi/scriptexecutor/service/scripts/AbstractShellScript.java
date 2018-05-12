@@ -33,19 +33,21 @@ public abstract class AbstractShellScript implements ShellScript {
 		ExecutionResult result = new ExecutionResult();
 
 		List<String> commands = new ArrayList<>();
-		commands.add(EXECUTE_SCRIPT);
+//		commands.add(EXECUTE_SCRIPT);
 		commands.add(getScriptName());
 
 		ProcessBuilder pb = new ProcessBuilder(commands);
 		pb.environment().putAll(context.getArgs());
-		pb.redirectErrorStream(true);
-		pb.redirectOutput(Redirect.INHERIT);
+//		pb.redirectErrorStream(true);
+//		pb.redirectOutput(Redirect.INHERIT);
 		try {
-			String output = IOUtils.toString(pb.start().getInputStream(), "UTF-8");
+			Process p = pb.start();
+			p.waitFor();
+			String output = IOUtils.toString(p.getInputStream(), "UTF-8");
 			logger.info(output);
 			ObjectMapper mapper = new ObjectMapper();
 			result = mapper.readValue(output, ExecutionResult.class);
-		} catch (IOException e) {
+		} catch (IOException | InterruptedException e) {
 			e.printStackTrace();
 		}
 		return result;
@@ -53,6 +55,6 @@ public abstract class AbstractShellScript implements ShellScript {
 
 	// Can be overriden
 	public String getScriptName() {
-		return context.getScriptId() + ".sh";
+		return "src/test/resources/scripts/" + context.getScriptId() + ".bat";
 	}
 }
