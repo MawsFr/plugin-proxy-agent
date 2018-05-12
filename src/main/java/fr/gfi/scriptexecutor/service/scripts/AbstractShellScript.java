@@ -43,6 +43,7 @@ public abstract class AbstractShellScript implements ShellScript {
 		try {
 			Process p = pb.start();
 			p.waitFor();
+			// TODO : Maybe use a regex to get the message + exitcode with lastIndexOf {"message" :
 			String output = IOUtils.toString(p.getInputStream(), "UTF-8");
 			logger.info(output);
 			ObjectMapper mapper = new ObjectMapper();
