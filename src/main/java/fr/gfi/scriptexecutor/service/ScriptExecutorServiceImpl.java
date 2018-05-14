@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import fr.gfi.scriptexecutor.exception.ServiceException;
 import fr.gfi.scriptexecutor.model.ExecutionResult;
 import fr.gfi.scriptexecutor.model.ScriptContext;
 import fr.gfi.scriptexecutor.model.ShellScript;
@@ -22,12 +23,15 @@ public class ScriptExecutorServiceImpl implements ScriptExecutorService {
 	@Autowired
 	private ScriptProvider provider;
 
-	public ExecutionResult execute(ScriptContext context) {
+	public ExecutionResult execute(ScriptContext context) throws ServiceException {
 		ShellScript script = provider.getScripts().get(context.getScriptId());
+		if (script == null) {
+			throw new ServiceException("script.notfound");
+		}
 		ExecutionResult result = new ExecutionResult();
 
 		List<String> commands = new ArrayList<>();
-		commands.add(script.getFolder() + script.getScriptName());
+		commands.add(provider.getScriptsFolder() + script.getFilename());
 
 		ProcessBuilder pb = new ProcessBuilder(commands);
 		pb.environment().putAll(context.getArgs());

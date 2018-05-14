@@ -13,30 +13,24 @@ public class ShellScript {
 	public static final String SCRIPT_EXTENSION = ".bat";
 	// public static final String SCRIPT_EXTENSION = ".sh";
 
-	protected String name;
+	protected String id;
 
-	protected String scriptName;
+	protected String filename;
 
 	protected boolean enabled;
 
-	protected String folder;
-
 	// TODO : add rights
 
-	public ShellScript(String name) {
-		this(name, "", name + SCRIPT_EXTENSION);
-	}
-
 	/**
 	 * Default constructor
 	 * 
 	 * The script name will be automatically setted to name.sh
 	 * 
-	 * @param name
+	 * @param id
 	 *            The name of the script
 	 */
-	public ShellScript(String name, String folder) {
-		this(name, folder, name + SCRIPT_EXTENSION);
+	public ShellScript(String id) {
+		this(id, id + SCRIPT_EXTENSION);
 	}
 
 	/**
@@ -44,22 +38,16 @@ public class ShellScript {
 	 * 
 	 * The script name will be automatically setted to name.sh
 	 * 
-	 * @param name
+	 * @param id
 	 *            The name of the script
 	 * 
-	 * @param scriptName
+	 * @param filename
 	 *            The name of the script file to execute
 	 */
-	public ShellScript(String name, String folder, String scriptName) {
-		this.name = name;
-		this.scriptName = scriptName;
-		this.folder = folder;
+	public ShellScript(String id, String filename) {
+		this.id = id;
+		this.filename = filename;
 		this.enabled = true;
-	}
-
-	@Override
-	public String toString() {
-		return name;
 	}
 
 }

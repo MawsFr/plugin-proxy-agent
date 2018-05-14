@@ -22,4 +22,6 @@ public interface ScriptProvider {
 	void addScript(ShellScript script);
 
 	void setScripts(Map<String, ShellScript> scripts);
+
+	String getScriptsFolder();
 }

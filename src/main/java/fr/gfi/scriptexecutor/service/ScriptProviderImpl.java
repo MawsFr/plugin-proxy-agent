@@ -18,7 +18,7 @@ public class ScriptProviderImpl implements ScriptProvider {
 	public static final String CREATE_SVN = "create_svn";
 
 	@Value("${scripts.folder}")
-	private String SCRIPTS_FOLDER;
+	private String scriptsFolder;
 
 	private Map<String, ShellScript> scripts;
 
@@ -28,14 +28,13 @@ public class ScriptProviderImpl implements ScriptProvider {
 	}
 
 	public void initScripts() {
-		addScript(new ShellScript(CREATE_GIT, SCRIPTS_FOLDER));
-		addScript(new ShellScript(CREATE_SVN, SCRIPTS_FOLDER));
+		addScript(new ShellScript(CREATE_GIT));
+		addScript(new ShellScript(CREATE_SVN));
 	}
 
 	@Override
 	public void addScript(ShellScript script) {
-		script.setFolder(SCRIPTS_FOLDER);
-		scripts.put(script.toString(), script);
+		scripts.put(script.getId(), script);
 	}
 
 }

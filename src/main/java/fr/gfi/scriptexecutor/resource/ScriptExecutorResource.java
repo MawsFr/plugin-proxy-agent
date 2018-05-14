@@ -19,8 +19,6 @@ import fr.gfi.scriptexecutor.service.ScriptExecutorService;
 @Produces(MediaType.APPLICATION_JSON)
 public class ScriptExecutorResource {
 
-	// public static final String PATH = "script-executor";
-
 	@Autowired
 	private ScriptExecutorService service;
 
@@ -32,9 +30,11 @@ public class ScriptExecutorResource {
 	 * @param params
 	 *            The list of field needed by the script as env variables
 	 * @return The execution result with the error message
+	 * @throws Exception
 	 */
 	@PostMapping("/{scriptId}")
-	public ExecutionResult execute(@PathVariable("scriptId") String scriptId, @RequestBody Map<String, String> params) {
+	public ExecutionResult execute(@PathVariable("scriptId") String scriptId, @RequestBody Map<String, String> params)
+			throws Exception {
 		ScriptContext context = createContext(scriptId, params);
 		return this.service.execute(context);
 	}
