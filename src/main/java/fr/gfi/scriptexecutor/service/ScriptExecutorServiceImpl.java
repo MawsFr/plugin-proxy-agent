@@ -23,6 +23,7 @@ public class ScriptExecutorServiceImpl implements ScriptExecutorService {
 
 	public static final String SCRIPT_NOT_FOUND = "script-not-found";
 	public static final String SCRIPT_EXECUTION_ERROR = "script-exec-error";
+	public static final String SCRIPT_DONT_RESPECT_RULES = "script-dont-respect-rules";
 
 	@Autowired
 	private ScriptProvider provider;
@@ -48,11 +49,18 @@ public class ScriptExecutorServiceImpl implements ScriptExecutorService {
 			// TODO : Maybe use a regex to get the message + exitcode with lastIndexOf
 			// {"message" :
 			String output = IOUtils.toString(p.getInputStream(), StandardCharsets.UTF_8.name());
+			int lastIndex = output.lastIndexOf("{\"message\":"); // TODO : Use pattern matching
+			if (lastIndex <= -1) {
+				throw new ServiceException(SCRIPT_DONT_RESPECT_RULES);
+			}
+			output = output.substring(lastIndex, output.length());
 			ObjectMapper mapper = new ObjectMapper();
 			result = mapper.readValue(output, ExecutionResult.class);
 			result.setExitCode(exitCode);
 		} catch (IOException | InterruptedException e) {
 			throw new ServiceException(SCRIPT_EXECUTION_ERROR, e);
+		} catch (ServiceException e) {
+			throw e;
 		}
 		return result;
 	}
