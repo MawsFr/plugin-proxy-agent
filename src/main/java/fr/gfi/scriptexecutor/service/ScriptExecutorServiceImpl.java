@@ -26,6 +26,7 @@ public class ScriptExecutorServiceImpl implements ScriptExecutorService {
 	public static final String SCRIPT_NOT_FOUND = "script-not-found";
 	public static final String SCRIPT_EXECUTION_ERROR = "script-exec-error";
 	public static final String SCRIPT_DONT_RESPECT_RULES = "script-dont-respect-rules";
+	public static final String PATTERN = "\\\\{.*\\\\}";
 
 	@Autowired
 	private ScriptProvider provider;
@@ -74,7 +75,7 @@ public class ScriptExecutorServiceImpl implements ScriptExecutorService {
 	 *             : ""} must be at least provided by the script
 	 */
 	public String getExecutionResultJSONString(String scriptOutput) throws ServiceException {
-		Matcher m = Pattern.compile("\\{.*\\}").matcher(scriptOutput);
+		Matcher m = Pattern.compile(PATTERN).matcher(scriptOutput);
 		if (m.find()) {
 			return m.group(m.groupCount());
 		}
