@@ -19,23 +19,11 @@ public interface ShellScript {
 	ExecutionResult execute(IContext context);
 
 	/**
-	 * @return True if the script can be run
+	 * Sets the folder containing the script
+	 * 
+	 * @param folder
+	 *            The folder name
 	 */
-	boolean canRun();
+	void setFolder(String folder);
 
-	/**
-	 * @return True if the arguments respects the rules specified in the technical
-	 *         conception
-	 */
-	boolean areArgsValid();
-
-	/**
-	 * @return True if the script file exists
-	 */
-	boolean shellScriptExists();
-
-	/**
-	 * @return The script name depending on the scriptId (by default : scriptId.sh)
-	 */
-	String getScriptName();
 }

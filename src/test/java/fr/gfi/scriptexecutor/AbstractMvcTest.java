@@ -18,7 +18,8 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import fr.gfi.scriptexecutor.service.ScriptExecutorService;
+import fr.gfi.scriptexecutor.service.ScriptProvider;
+import fr.gfi.scriptexecutor.service.scripts.ShellScriptImpl;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
@@ -26,6 +27,8 @@ import fr.gfi.scriptexecutor.service.ScriptExecutorService;
 @ActiveProfiles(ScriptExecutorApplicationTests.TEST_PROFILE)
 @Ignore
 public abstract class AbstractMvcTest {
+	private static final String TEST_SUCCESS = "testsuccess";
+
 	protected MockMvc mockMvc;
 
 	private final ObjectMapper mapper = new ObjectMapper();
@@ -35,14 +38,14 @@ public abstract class AbstractMvcTest {
 	private WebApplicationContext wac;
 
 	@Autowired
-	private ScriptExecutorService service;
+	private ScriptProvider provider;
 
 	@Before
 	public void setup() {
 		// this.mockMvc =
 		// webAppContextSetup(this.wac).apply(SecurityMockMvcConfigurers.springSecurity()).build();
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
-
+		provider.addScript(new ShellScriptImpl(TEST_SUCCESS));
 	}
 
 	@Before

@@ -15,9 +15,6 @@ public class ScriptExecutorResourceTest extends AbstractMvcTest {
 
 	public static final String SCRIPT_EXECUTOR_PATH = "script-executor";
 
-	// @Autowired
-	// private ScriptExecutorResource resource;
-
 	/**
 	 * Tests a successfull script <br />
 	 * - Message : test ok<br />
@@ -29,9 +26,7 @@ public class ScriptExecutorResourceTest extends AbstractMvcTest {
 	public void executeSucess() throws Exception {
 		this.mockMvc
 				.perform(post("/testsuccess").contentType(MediaType.APPLICATION_JSON).content(json(new HashMap<>())))
-				.andExpect(status().isOk()).andExpect(jsonPath("$.message").value("test ok"))
-				.andExpect(jsonPath("$.exitCode").value("0"));
-
+				.andExpect(status().isOk()).andExpect(jsonPath("$.message").value("test ok"));
 	}
 
 	@Override

@@ -18,9 +18,4 @@ public interface ScriptExecutorService {
 	 */
 	ExecutionResult execute(IContext context);
 
-	/**
-	 * Initializes all the callable scripts.
-	 */
-	void initScripts();
-
 }
