@@ -21,7 +21,8 @@ import lombok.Setter;
 @Setter
 public class ScriptExecutorServiceImpl implements ScriptExecutorService {
 
-	public static final String SCRIPT_NOT_FOUND = "script-notfound";
+	public static final String SCRIPT_NOT_FOUND = "script-not-found";
+	public static final String SCRIPT_EXECUTION_ERROR = "script-exec-error";
 
 	@Autowired
 	private ScriptProvider provider;
@@ -49,7 +50,7 @@ public class ScriptExecutorServiceImpl implements ScriptExecutorService {
 			result = mapper.readValue(output, ExecutionResult.class);
 			result.setExitCode(exitCode);
 		} catch (IOException | InterruptedException e) {
-			e.printStackTrace();
+			throw new ServiceException(SCRIPT_EXECUTION_ERROR, e);
 		}
 		return result;
 	}

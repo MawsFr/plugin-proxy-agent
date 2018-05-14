@@ -4,6 +4,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 import org.junit.Test;
@@ -20,15 +21,23 @@ public class ScriptExecutorResourceTest extends AbstractMvcTest {
 	 * - Message : test ok<br />
 	 * - exitCode : 0
 	 * 
+	 * @throws IOException
+	 * 
 	 * @throws Exception
 	 */
 	@Test
-	public void executeSucess() throws Exception {
+	public void executeSucess() throws IOException, Exception {
 		this.mockMvc
 				.perform(post("/testsuccess").contentType(MediaType.APPLICATION_JSON).content(json(new HashMap<>())))
 				.andExpect(status().isOk()).andExpect(jsonPath("$.message").value("test ok"))
 				.andExpect(jsonPath("$.exitCode").value("0")).andExpect(jsonPath("$.messageKey").value("test-ok"));
+	}
 
+	@Test
+	public void executeFail() throws IOException, Exception {
+		this.mockMvc.perform(post("/testfail").contentType(MediaType.APPLICATION_JSON).content(json(new HashMap<>())))
+				.andExpect(status().isOk()).andExpect(jsonPath("$.message").value("test fail"))
+				.andExpect(jsonPath("$.exitCode").value("1")).andExpect(jsonPath("$.messageKey").value("test-fail"));
 	}
 
 	@Override

@@ -32,7 +32,7 @@ public class ScriptExecutorResource {
 	 * @param params
 	 *            The list of field needed by the script as env variables
 	 * @return The execution result with the error message
-	 * @throws Exception
+	 * @throws BusinessException
 	 */
 	@PostMapping("/{scriptId}")
 	public ExecutionResult execute(@PathVariable("scriptId") String scriptId, @RequestBody Map<String, String> params)
@@ -41,9 +41,8 @@ public class ScriptExecutorResource {
 		try {
 			return this.service.execute(context);
 		} catch (ServiceException e) {
-			new BusinessException(e);
+			throw new BusinessException(e);
 		}
-		return null;
 	}
 
 	/**
