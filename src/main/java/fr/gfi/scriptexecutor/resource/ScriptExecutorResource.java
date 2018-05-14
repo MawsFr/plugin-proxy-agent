@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.gfi.scriptexecutor.exception.BusinessException;
+import fr.gfi.scriptexecutor.exception.ServiceException;
 import fr.gfi.scriptexecutor.model.ExecutionResult;
 import fr.gfi.scriptexecutor.model.ScriptContext;
 import fr.gfi.scriptexecutor.service.ScriptExecutorService;
@@ -34,9 +36,14 @@ public class ScriptExecutorResource {
 	 */
 	@PostMapping("/{scriptId}")
 	public ExecutionResult execute(@PathVariable("scriptId") String scriptId, @RequestBody Map<String, String> params)
-			throws Exception {
+			throws BusinessException {
 		ScriptContext context = createContext(scriptId, params);
-		return this.service.execute(context);
+		try {
+			return this.service.execute(context);
+		} catch (ServiceException e) {
+			new BusinessException(e);
+		}
+		return null;
 	}
 
 	/**

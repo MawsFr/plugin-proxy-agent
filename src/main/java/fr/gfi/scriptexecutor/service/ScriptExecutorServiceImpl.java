@@ -1,6 +1,7 @@
 package fr.gfi.scriptexecutor.service;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,13 +21,15 @@ import lombok.Setter;
 @Setter
 public class ScriptExecutorServiceImpl implements ScriptExecutorService {
 
+	public static final String SCRIPT_NOT_FOUND = "script-notfound";
+
 	@Autowired
 	private ScriptProvider provider;
 
 	public ExecutionResult execute(ScriptContext context) throws ServiceException {
 		ShellScript script = provider.getScripts().get(context.getScriptId());
 		if (script == null) {
-			throw new ServiceException("script.notfound");
+			throw new ServiceException(SCRIPT_NOT_FOUND);
 		}
 		ExecutionResult result = new ExecutionResult();
 
@@ -41,7 +44,7 @@ public class ScriptExecutorServiceImpl implements ScriptExecutorService {
 			p.destroy();
 			// TODO : Maybe use a regex to get the message + exitcode with lastIndexOf
 			// {"message" :
-			String output = IOUtils.toString(p.getInputStream(), "UTF-8");
+			String output = IOUtils.toString(p.getInputStream(), StandardCharsets.UTF_8.name());
 			ObjectMapper mapper = new ObjectMapper();
 			result = mapper.readValue(output, ExecutionResult.class);
 			result.setExitCode(exitCode);
