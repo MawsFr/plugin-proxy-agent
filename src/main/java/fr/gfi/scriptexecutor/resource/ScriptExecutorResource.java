@@ -6,7 +6,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +24,11 @@ public class ScriptExecutorResource {
 	@Autowired
 	private ScriptExecutorService service;
 
+	@GetMapping
+	public String hello() {
+		return "hello world";
+	}
+
 	/**
 	 * Executes a script
 	 * 
@@ -34,10 +39,9 @@ public class ScriptExecutorResource {
 	 * @return The execution result with the error message
 	 * @throws BusinessException
 	 */
-	@PostMapping("/{scriptId}")
-	public ExecutionResult execute(@PathVariable("scriptId") String scriptId, @RequestBody Map<String, String> params)
-			throws BusinessException {
-		ScriptContext context = createContext(scriptId, params);
+	@PostMapping
+	public ExecutionResult execute(@RequestBody ScriptContext context) throws BusinessException {
+		// ScriptContext context = createContext(scriptId, params);
 		try {
 			return this.service.execute(context);
 		} catch (ServiceException e) {
