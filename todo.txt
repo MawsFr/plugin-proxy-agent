@@ -1,0 +1,6 @@
+Exit codes
+
+0 : No error
+1 : Error of in script execution
+10 : Invalid parameters count
+20 : Invalid parameter + message

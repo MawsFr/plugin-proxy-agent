@@ -1,5 +1,6 @@
 package fr.gfi.scriptexecutor.service.scripts;
 
+// TODO : Delete this
 public class CreateGit extends RepositoryCreationScript {
 
 	@Override
