@@ -1,4 +1,4 @@
-package fr.gfi.scriptexecutor.service.context;
+package fr.gfi.scriptexecutor.model;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,7 +8,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ScriptContext implements IContext {
+public class ScriptContext {
 
 	private String scriptId;
 	private Map<String, String> args;

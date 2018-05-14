@@ -5,8 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
 
-import fr.gfi.scriptexecutor.service.scripts.ShellScript;
-import fr.gfi.scriptexecutor.service.scripts.ShellScriptImpl;
+import fr.gfi.scriptexecutor.model.ShellScript;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,8 +28,8 @@ public class ScriptProviderImpl implements ScriptProvider {
 	}
 
 	public void initScripts() {
-		addScript(new ShellScriptImpl(CREATE_GIT, SCRIPTS_FOLDER));
-		addScript(new ShellScriptImpl(CREATE_SVN, SCRIPTS_FOLDER));
+		addScript(new ShellScript(CREATE_GIT, SCRIPTS_FOLDER));
+		addScript(new ShellScript(CREATE_SVN, SCRIPTS_FOLDER));
 	}
 
 	@Override

@@ -2,7 +2,7 @@ package fr.gfi.scriptexecutor.service;
 
 import java.util.Map;
 
-import fr.gfi.scriptexecutor.service.scripts.ShellScript;
+import fr.gfi.scriptexecutor.model.ShellScript;
 
 public interface ScriptProvider {
 	/**

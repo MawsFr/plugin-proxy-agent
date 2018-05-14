@@ -11,10 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.gfi.scriptexecutor.model.ExecutionResult;
+import fr.gfi.scriptexecutor.model.ScriptContext;
 import fr.gfi.scriptexecutor.service.ScriptExecutorService;
-import fr.gfi.scriptexecutor.service.context.IContext;
-import fr.gfi.scriptexecutor.service.context.ScriptContext;
-import fr.gfi.scriptexecutor.service.scripts.ExecutionResult;
 
 @RestController("script-executor")
 @Produces(MediaType.APPLICATION_JSON)
@@ -36,7 +35,7 @@ public class ScriptExecutorResource {
 	 */
 	@PostMapping("/{scriptId}")
 	public ExecutionResult execute(@PathVariable("scriptId") String scriptId, @RequestBody Map<String, String> params) {
-		IContext context = createContext(scriptId, params);
+		ScriptContext context = createContext(scriptId, params);
 		return this.service.execute(context);
 	}
 
@@ -50,7 +49,7 @@ public class ScriptExecutorResource {
 	 *            The parameters entered in fields (front)
 	 * @return A context variable
 	 */
-	private IContext createContext(String scriptId, Map<String, String> params) {
+	private ScriptContext createContext(String scriptId, Map<String, String> params) {
 		ScriptContext context = new ScriptContext();
 		context.setScriptId(scriptId);
 		context.setArgs(params);

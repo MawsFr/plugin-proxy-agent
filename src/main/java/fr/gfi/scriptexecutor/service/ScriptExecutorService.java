@@ -2,8 +2,8 @@ package fr.gfi.scriptexecutor.service;
 
 import org.springframework.stereotype.Component;
 
-import fr.gfi.scriptexecutor.service.context.IContext;
-import fr.gfi.scriptexecutor.service.scripts.ExecutionResult;
+import fr.gfi.scriptexecutor.model.ExecutionResult;
+import fr.gfi.scriptexecutor.model.ScriptContext;
 
 @Component
 public interface ScriptExecutorService {
@@ -16,6 +16,6 @@ public interface ScriptExecutorService {
 	 * @return An execution summary variable containing the messagr to display and
 	 *         the code returned by the script.
 	 */
-	ExecutionResult execute(IContext context);
+	ExecutionResult execute(ScriptContext context);
 
 }
