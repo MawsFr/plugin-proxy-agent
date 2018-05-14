@@ -1,7 +1,5 @@
 package fr.gfi.scriptexecutor.resource;
 
-import java.util.Map;
-
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -41,29 +39,11 @@ public class ScriptExecutorResource {
 	 */
 	@PostMapping
 	public ExecutionResult execute(@RequestBody ScriptContext context) throws BusinessException {
-		// ScriptContext context = createContext(scriptId, params);
 		try {
 			return this.service.execute(context);
 		} catch (ServiceException e) {
 			throw new BusinessException(e);
 		}
-	}
-
-	/**
-	 * Creates a context variable with the script id and the parameters sent by
-	 * front
-	 * 
-	 * @param scriptId
-	 *            The script id
-	 * @param params
-	 *            The parameters entered in fields (front)
-	 * @return A context variable
-	 */
-	private ScriptContext createContext(String scriptId, Map<String, String> params) {
-		ScriptContext context = new ScriptContext();
-		context.setScriptId(scriptId);
-		context.setArgs(params);
-		return context;
 	}
 
 }
