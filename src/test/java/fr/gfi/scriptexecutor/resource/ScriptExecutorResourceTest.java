@@ -5,12 +5,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 import org.junit.Test;
 import org.springframework.http.MediaType;
 
 import fr.gfi.scriptexecutor.AbstractMvcTest;
+import fr.gfi.scriptexecutor.model.ScriptContext;
 
 public class ScriptExecutorResourceTest extends AbstractMvcTest {
 
@@ -27,15 +27,18 @@ public class ScriptExecutorResourceTest extends AbstractMvcTest {
 	 */
 	@Test
 	public void executeSucess() throws IOException, Exception {
-		this.mockMvc
-				.perform(post("/testsuccess").contentType(MediaType.APPLICATION_JSON).content(json(new HashMap<>())))
+		final ScriptContext context = new ScriptContext();
+		context.setScriptId("testsuccess");
+		this.mockMvc.perform(post("").contentType(MediaType.APPLICATION_JSON).content(json(context)))
 				.andExpect(status().isOk()).andExpect(jsonPath("$.message").value("test ok"))
 				.andExpect(jsonPath("$.exitCode").value("0")).andExpect(jsonPath("$.messageKey").value("test-ok"));
 	}
 
 	@Test
 	public void executeFail() throws IOException, Exception {
-		this.mockMvc.perform(post("/testfail").contentType(MediaType.APPLICATION_JSON).content(json(new HashMap<>())))
+		final ScriptContext context = new ScriptContext();
+		context.setScriptId("testfail");
+		this.mockMvc.perform(post("").contentType(MediaType.APPLICATION_JSON).content(json(context)))
 				.andExpect(status().isOk()).andExpect(jsonPath("$.message").value("test failed"))
 				.andExpect(jsonPath("$.exitCode").value("1")).andExpect(jsonPath("$.messageKey").value("test-fail"));
 	}

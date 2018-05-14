@@ -28,6 +28,7 @@ import fr.gfi.scriptexecutor.service.ScriptProvider;
 @Ignore
 public abstract class AbstractMvcTest {
 	private static final String TEST_SUCCESS = "testsuccess";
+	private static final String TEST_FAIL = "testfail";
 
 	protected MockMvc mockMvc;
 
@@ -46,6 +47,7 @@ public abstract class AbstractMvcTest {
 		// webAppContextSetup(this.wac).apply(SecurityMockMvcConfigurers.springSecurity()).build();
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
 		provider.addScript(new ShellScript(TEST_SUCCESS));
+		provider.addScript(new ShellScript(TEST_FAIL));
 	}
 
 	@Before

@@ -38,7 +38,9 @@ public class ScriptExecutorServiceImpl implements ScriptExecutorService {
 		commands.add(provider.getScriptsFolder() + script.getFilename());
 
 		ProcessBuilder pb = new ProcessBuilder(commands);
-		pb.environment().putAll(context.getArgs());
+		if (context.getArgs() != null && !context.getArgs().isEmpty()) {
+			pb.environment().putAll(context.getArgs());
+		}
 		try {
 			Process p = pb.start();
 			int exitCode = p.waitFor();
