@@ -1,3 +1,3 @@
 @echo off
-echo {"message": "test fail", "messageKey" : "test-fail"}
+echo {"message": "test failed", "messageKey" : "test-fail"}
 exit 1

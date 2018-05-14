@@ -36,7 +36,7 @@ public class ScriptExecutorResourceTest extends AbstractMvcTest {
 	@Test
 	public void executeFail() throws IOException, Exception {
 		this.mockMvc.perform(post("/testfail").contentType(MediaType.APPLICATION_JSON).content(json(new HashMap<>())))
-				.andExpect(status().isOk()).andExpect(jsonPath("$.message").value("test fail"))
+				.andExpect(status().isOk()).andExpect(jsonPath("$.message").value("test failed"))
 				.andExpect(jsonPath("$.exitCode").value("1")).andExpect(jsonPath("$.messageKey").value("test-fail"));
 	}
 
