@@ -10,8 +10,8 @@ import lombok.Setter;
 @Setter
 public class ShellScript {
 	private static final Logger logger = LoggerFactory.getLogger(ShellScript.class);
-	public static final String SCRIPT_EXTENSION = ".bat";
-	// public static final String SCRIPT_EXTENSION = ".sh";
+	// public static final String SCRIPT_EXTENSION = ".bat";
+	public static final String SCRIPT_EXTENSION = ".sh";
 
 	protected String id;
 
