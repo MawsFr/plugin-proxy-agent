@@ -1,5 +1,9 @@
 #!/bin/bash
 
+export PATH_GIT = /repos/git/
+export PATH_SVN = /repos/svn/
+export MODS_HOME = /repos/configs/
+
 #Verify if environment variables exists
 if [ -z "$URL" ]; then
 		echo {"message":"The url of the server must be setted", "messageKey"="git.validation.blank.url"}
