@@ -45,6 +45,7 @@ public class ScriptExecutorServiceImpl implements ScriptExecutorService {
 		ExecutionResult result = new ExecutionResult();
 
 		List<String> commands = new ArrayList<>();
+		commands.add("/bin/bash");
 		commands.add(StringUtils.appendIfMissing(provider.getScriptsFolder(), "/") + script.getFilename());
 
 		ProcessBuilder pb = new ProcessBuilder(commands);
