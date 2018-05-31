@@ -4,6 +4,8 @@ FROM openjdk:10-jdk
 # Add a volume pointing to /tmp
 VOLUME /tmp
 
+COPY scripts/* /scripts
+
 # Make port 8090 available to the world outside this container
 EXPOSE 8090
 
