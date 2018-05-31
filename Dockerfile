@@ -8,6 +8,8 @@ ENV SCRIPT_FOLDER=/proxy-agent/scripts
 
 ADD scripts/prod/ ${SCRIPT_FOLDER}
 
+RUN chmod +x ${SCRIPT_FOLDER}*.sh
+
 # Make port 8090 available to the world outside this container
 EXPOSE 8090
 
