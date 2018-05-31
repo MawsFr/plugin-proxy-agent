@@ -8,6 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,7 @@ public class ScriptExecutorServiceImpl implements ScriptExecutorService {
 		ExecutionResult result = new ExecutionResult();
 
 		List<String> commands = new ArrayList<>();
-		commands.add(provider.getScriptsFolder() + script.getFilename());
+		commands.add(StringUtils.appendIfMissing(provider.getScriptsFolder(), "/") + script.getFilename());
 
 		ProcessBuilder pb = new ProcessBuilder(commands);
 		if (context.getArgs() != null && !context.getArgs().isEmpty()) {
