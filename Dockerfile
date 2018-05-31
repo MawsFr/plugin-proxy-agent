@@ -6,7 +6,7 @@ VOLUME /tmp
 
 ENV SCRIPT_FOLDER=/proxy-agent/scripts
 
-COPY scripts/prod/ ${SCRIPT_FOLDER}
+ADD scripts/prod/ ${SCRIPT_FOLDER}
 
 # Make port 8090 available to the world outside this container
 EXPOSE 8090
