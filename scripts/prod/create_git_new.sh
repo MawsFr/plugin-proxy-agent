@@ -6,28 +6,28 @@ export MODS_HOME = /repos/configs/
 
 #Verify if environment variables exists
 if [ -z "$URL" ]; then
-		echo {"message":"The url of the server must be setted", "messageKey"="git.validation.blank.url"}
+		# echo {"message":"The url of the server must be setted in env vars", "messageKey"="git.validation.blank.url"}
 		exit 1
 fi
 if [ -z "$PROJECT" ]; then
-		echo {"message":"The project name must be setted", "messageKey"="git.validation.blank.projectname"}
-		exit 1
+		# echo {"message":"The project name must be setted in env vars", "messageKey"="git.validation.blank.projectname"}
+		exit 2
 fi
 if [ -z "$CLIENT" ]; then
-		echo {"message":"The client name must be setted", "messageKey"="git.validation.blank.clientname"}
-		exit 1
+		# echo {"message":"The client name must be setted in env vars", "messageKey"="git.validation.blank.clientname"}
+		exit 3
 fi
 if [ -z "$LDAP_GROUPS" ]; then
-		echo {"message":"There must be at least one ldap group selected", "messageKey"="git.validation.blank.ldapgroups"}
-		exit 1
+		# echo {"message":"There must be at least one ldap group selected", "messageKey"="git.validation.blank.ldapgroups"}
+		exit 4
 fi
 if [ -z "$USER" ]; then
-		echo {"message":"The user must be setted", "messageKey"="git.validation.blank.password"}
-		exit 1
+		# echo {"message":"The user must be setted in env vars", "messageKey"="git.validation.blank.password"}
+		exit 5
 fi
 if [ -z "$PASSWORD" ]; then
-		echo {"message":"The password must be setted", "messageKey"="git.validation.blank.password"}
-		exit 1
+		# echo {"message":"The password must be setted in env vars", "messageKey"="git.validation.blank.password"}
+		exit 6
 fi
 
 #compose keys and paths
@@ -36,8 +36,8 @@ REPOSITORY_PATH="$PATH_GIT/repos/$KEY.git"
 
 #verify if repository already exists
 if [ -d $REPOSITORY_PATH ]; then
-	echo {"message":"A Git repository with the same name already exists", "messageKey"="git.validation.exists"}
-	exit 2
+	# echo {"message":"A Git repository with the same name already exists", "messageKey"="git.validation.exists"}
+	exit 7
 else
 	#init repository
 	git --bare init "$REPOSITORY_PATH"
@@ -75,9 +75,9 @@ service httpd reload
 #checking that the repository works
 git ls-remote "https://$USER:$PASSWORD@$URL$REPOSITORY.git"
 if (( $? != 0 )); then
-  echo {"message":"There has been an error in the Git repository creation", "messageKey"="git.fail"}
-  exit 3
+  # echo {"message":"There has been an error in the Git repository creation", "messageKey"="git.fail"}
+  exit 8
 fi
 
-echo {"message":"The Git repository has been successfully created", "messageKey"="git.success"}
+# echo {"message":"The Git repository has been successfully created", "messageKey"="git.success"}
 exit 0
