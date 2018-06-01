@@ -6,7 +6,7 @@ VOLUME /tmp
 
 ENV SCRIPT_FOLDER=/proxy-agent/scripts
 
-ADD scripts/prod/ ${SCRIPT_FOLDER}
+ADD ${HOST_SCRIPT_FOLDER} ${SCRIPT_FOLDER}
 
 RUN chmod +x ${SCRIPT_FOLDER}/*.sh
 
