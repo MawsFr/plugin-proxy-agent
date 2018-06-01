@@ -1,22 +1,17 @@
 package fr.gfi.scriptexecutor.service;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import fr.gfi.scriptexecutor.exception.ServiceException;
-import fr.gfi.scriptexecutor.model.ExecutionResult;
 import fr.gfi.scriptexecutor.model.ScriptContext;
 import fr.gfi.scriptexecutor.model.ShellScript;
 import lombok.Getter;
@@ -36,13 +31,12 @@ public class ScriptExecutorServiceImpl implements ScriptExecutorService {
 	@Autowired
 	private ScriptProvider provider;
 
-	public ExecutionResult execute(ScriptContext context) throws ServiceException {
+	public int execute(ScriptContext context) throws ServiceException {
 		ShellScript script = provider.getScripts().get(context.getScriptId());
 		if (script == null) {
 			log.error("The script {} doesn't exist or is not executable", context.getScriptId());
 			throw new ServiceException(SCRIPT_NOT_FOUND);
 		}
-		ExecutionResult result = new ExecutionResult();
 
 		List<String> commands = new ArrayList<>();
 		commands.add("/bin/bash");
@@ -53,25 +47,17 @@ public class ScriptExecutorServiceImpl implements ScriptExecutorService {
 			pb.environment().putAll(context.getArgs());
 		}
 		log.info("The command that will be executed is {}", commands);
+		int exitCode = 0;
 		try {
 			log.error("Executing script : {}", context.getScriptId());
 			Process p = pb.start();
-			int exitCode = p.waitFor();
+			exitCode = p.waitFor();
 			log.error("Exit code : {}", exitCode);
 			p.destroy();
-			// TODO : Maybe use a regex to get the message + exitcode with lastIndexOf
-			// {"message" :
-			String output = getExecutionResultJSONString(
-					IOUtils.toString(p.getInputStream(), StandardCharsets.UTF_8.name()));
-			ObjectMapper mapper = new ObjectMapper();
-			result = mapper.readValue(output, ExecutionResult.class);
-			result.setExitCode(exitCode);
 		} catch (IOException | InterruptedException e) {
 			throw new ServiceException(SCRIPT_EXECUTION_ERROR, e);
-		} catch (ServiceException e) {
-			throw e;
 		}
-		return result;
+		return exitCode;
 	}
 
 	/**

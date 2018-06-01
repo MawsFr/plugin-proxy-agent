@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fr.gfi.scriptexecutor.exception.BusinessException;
 import fr.gfi.scriptexecutor.exception.ServiceException;
-import fr.gfi.scriptexecutor.model.ExecutionResult;
 import fr.gfi.scriptexecutor.model.ScriptContext;
 import fr.gfi.scriptexecutor.service.ScriptExecutorService;
 
@@ -42,7 +41,7 @@ public class ScriptExecutorResource {
 	 * @throws BusinessException
 	 */
 	@PostMapping
-	public ExecutionResult execute(@RequestBody ScriptContext context) throws BusinessException {
+	public int execute(@RequestBody ScriptContext context) throws BusinessException {
 		log.info("Trying to execute the script {} with arguments : {}", context.getScriptId(), context.getArgs());
 		try {
 			return this.service.execute(context);
