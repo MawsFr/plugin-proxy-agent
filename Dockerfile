@@ -4,12 +4,12 @@ FROM openjdk:10-jdk
 # Add a volume pointing to /tmp
 VOLUME /tmp
 
-ENV HOST_SCRIPTS_FOLDER=scripts/prod
-ENV SCRIPTS_FOLDER=/proxy-agent/scripts
+# ENV HOST_SCRIPTS_FOLDER=scripts/prod
+# ENV SCRIPTS_FOLDER=/proxy-agent/scripts
 
-ADD ${HOST_SCRIPTS_FOLDER} ${SCRIPTS_FOLDER}
+# ADD ${HOST_SCRIPTS_FOLDER} ${SCRIPTS_FOLDER}
 
-RUN chmod +x ${SCRIPTS_FOLDER}/*.sh
+# RUN chmod +x ${SCRIPTS_FOLDER}/*.sh
 
 # Make port 8090 available to the world outside this container
 EXPOSE 8090
