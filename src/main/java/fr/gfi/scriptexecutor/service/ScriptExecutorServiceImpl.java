@@ -1,6 +1,7 @@
 package fr.gfi.scriptexecutor.service;
 
 import java.io.IOException;
+import java.lang.ProcessBuilder.Redirect;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -46,6 +47,8 @@ public class ScriptExecutorServiceImpl implements ScriptExecutorService {
 		if (context.getArgs() != null && !context.getArgs().isEmpty()) {
 			pb.environment().putAll(context.getArgs());
 		}
+		pb.redirectOutput(Redirect.INHERIT);
+		pb.redirectErrorStream(true);
 		log.info("The command that will be executed is {}", commands);
 		int exitCode = 0;
 		try {
