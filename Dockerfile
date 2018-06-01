@@ -4,6 +4,7 @@ FROM openjdk:10-jdk
 # Add a volume pointing to /tmp
 VOLUME /tmp
 
+ENV HOST_SCRIPTS_FOLDER=scripts/prod
 ENV SCRIPTS_FOLDER=/proxy-agent/scripts
 
 ADD ${HOST_SCRIPTS_FOLDER} ${SCRIPTS_FOLDER}
