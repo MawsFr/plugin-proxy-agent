@@ -9,7 +9,7 @@ if [ -z "$PROJECT" ]; then
 		echo {"message":"The project name must be setted", "messageKey"="svn.validation.blank.projectname"}
 		exit 1
 fi
-if [ -z "$CLIENT" ]; then
+if [ -z "$OU" ]; then
 		echo {"message":"The client name must be setted", "messageKey"="svn.validation.blank.clientname"}
 		exit 1
 fi
@@ -58,19 +58,19 @@ fi
 
 #create apache config
 MOD_HOME="$MODS_HOME/scm/svn"
-MOD_CONF="$MODS_HOME/$REPOSITORY.conf"
+MOD_CONF="$MOD_HOME/$REPOSITORY.conf"
 cp $MOD_HOME/.template_svn.conf $MOD_CONF
 
 # Use sed to replace keys by values in template.conf
 # put => Require ldap-group cn=SECURITY_GROUP,ou=CLIENT,ou=projects,dc=gfi,dc=fr <= for each ldapgroups
-sed -i "s|URL|$URL|g" $MOD_CONF
 sed -i "s|REPOSITORY|$REPOSITORY|g" $MOD_CONF
 
 # Applying read and write rights to ldap groups
-for element in "${LDAP_GROUPS[@]}"
+IFS=' ' read -r -a array <<< "$LDAP_GROUPS"
+for element in "${array[@]}"
 do
-	sed -i "s|READ_LDAP_GROUPS|		Require ldap-group $element\nREAD_LDAP_GROUPS|g" $MOD_CONF
-	sed -i "s|WRITE_LDAP_GROUPS|		Require ldap-group $element\nWRITE_LDAP_GROUPS|g" $MOD_CONF
+	sed -i "s|READ_LDAP_GROUPS|	Require ldap-group $element\nREAD_LDAP_GROUPS|g" $MOD_CONF
+	sed -i "s|WRITE_LDAP_GROUPS|	Require ldap-group $element\nWRITE_LDAP_GROUPS|g" $MOD_CONF
 done
 
 sed -i "s|READ_LDAP_GROUPS||g" $MOD_CONF

@@ -1,7 +1,6 @@
 #!/bin/bash
 
 PATH_GIT=/repos/git/
-PATH_SVN=/repos/svn/
 MODS_HOME=/repos/configs/
 
 #Verify if environment variables exists
@@ -21,8 +20,6 @@ if [ -z "$LDAP_GROUPS" ]; then
 		# echo {"message":"There must be at least one ldap group selected", "messageKey"="git.validation.blank.ldapgroups"}
 		exit 4
 fi
-
-echo $LDAP_GROUPS
 
 if [ -z "$USER" ]; then
 		# echo {"message":"The user must be setted in env vars", "messageKey"="git.validation.blank.password"}
