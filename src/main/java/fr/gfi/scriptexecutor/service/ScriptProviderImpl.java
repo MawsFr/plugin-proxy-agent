@@ -22,7 +22,7 @@ public class ScriptProviderImpl implements ScriptProvider {
 	public static final String CREATE_GIT = "create_git";
 	public static final String CREATE_SVN = "create_svn";
 
-	@Value("${SCRIPT_FOLDER}")
+	@Value("${scripts.folder}")
 	private String scriptsFolder;
 
 	private Map<String, ShellScript> scripts;
