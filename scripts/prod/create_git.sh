@@ -1,8 +1,8 @@
 #!/bin/bash
 
-export PATH_GIT = /repos/git/
-export PATH_SVN = /repos/svn/
-export MODS_HOME = /repos/configs/
+PATH_GIT=/repos/git/
+PATH_SVN=/repos/svn/
+MODS_HOME=/repos/configs/
 
 #Verify if environment variables exists
 if [ -z "$URL" ]; then
@@ -13,7 +13,7 @@ if [ -z "$PROJECT" ]; then
 		# echo {"message":"The project name must be setted in env vars", "messageKey"="git.validation.blank.projectname"}
 		exit 2
 fi
-if [ -z "$CLIENT" ]; then
+if [ -z "$OU" ]; then
 		# echo {"message":"The client name must be setted in env vars", "messageKey"="git.validation.blank.clientname"}
 		exit 3
 fi
@@ -21,6 +21,9 @@ if [ -z "$LDAP_GROUPS" ]; then
 		# echo {"message":"There must be at least one ldap group selected", "messageKey"="git.validation.blank.ldapgroups"}
 		exit 4
 fi
+
+echo $LDAP_GROUPS
+
 if [ -z "$USER" ]; then
 		# echo {"message":"The user must be setted in env vars", "messageKey"="git.validation.blank.password"}
 		exit 5
@@ -31,8 +34,8 @@ if [ -z "$PASSWORD" ]; then
 fi
 
 #compose keys and paths
-REPOSITORY=$CLIENT-$PROJECT
-REPOSITORY_PATH="$PATH_GIT/repos/$KEY.git"
+REPOSITORY=$OU-$PROJECT
+REPOSITORY_PATH="$PATH_GIT/repos/$REPOSITORY.git"
 
 #verify if repository already exists
 if [ -d $REPOSITORY_PATH ]; then
@@ -48,19 +51,19 @@ fi
 
 #create apache config
 MOD_HOME="$MODS_HOME/scm/git"
-MOD_CONF="$MODS_HOME/$REPOSITORY.conf"
-cp $MOD_HOME/.template.conf $MOD_CONF
+MOD_CONF="$MOD_HOME/$REPOSITORY.conf"
+cp $MOD_HOME/.template_git $MOD_CONF
 
 # Use sed to replace keys by values in template.conf
 # put => Require ldap-group cn=SECURITY_GROUP,ou=CLIENT,ou=projects,dc=gfi,dc=fr <= for each ldapgroups
-sed -i "s|URL|$URL|g" $MOD_CONF
 sed -i "s|REPOSITORY|$REPOSITORY|g" $MOD_CONF
 
 # Applying read and write rights to ldap groups
-for element in "${LDAP_GROUPS[@]}"
+IFS=' ' read -r -a array <<< "$LDAP_GROUPS"
+for element in "${array[@]}"
 do
-	sed -i "s|READ_LDAP_GROUPS|		Require ldap-group $element\nREAD_LDAP_GROUPS|g" $MOD_CONF
-	sed -i "s|WRITE_LDAP_GROUPS|		Require ldap-group $element\nWRITE_LDAP_GROUPS|g" $MOD_CONF
+	sed -i "s|READ_LDAP_GROUPS|	Require ldap-group $element\nREAD_LDAP_GROUPS|g" $MOD_CONF
+	sed -i "s|WRITE_LDAP_GROUPS|	Require ldap-group $element\nWRITE_LDAP_GROUPS|g" $MOD_CONF
 done
 
 sed -i "s|READ_LDAP_GROUPS||g" $MOD_CONF
