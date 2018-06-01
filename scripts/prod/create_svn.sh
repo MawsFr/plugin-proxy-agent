@@ -90,7 +90,7 @@ sed -i "s|WRITE_LDAP_GROUPS||g" $MOD_CONF
 repourl="$URL/$REPOSITORY/"
 status=`curl $repourl -o /dev/null --silent --head --write-out "%{http_code}" -u '$USER:$PASSWORD'`
 if (( $? != 0 )); then
-  echo {"message":"There has been an error in the Svn repository creation", "messageKey"="svn.fail"}
+  # echo {"message":"There has been an error in the Svn repository creation", "messageKey"="svn.fail"}
   exit 8
 fi
 
