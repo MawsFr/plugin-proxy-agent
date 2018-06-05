@@ -1,5 +1,7 @@
 package fr.gfi.scriptexecutor.security;
 
+import javax.ws.rs.core.HttpHeaders;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -17,7 +19,7 @@ import org.springframework.security.core.AuthenticationException;
 @Order(1)
 
 public class APISecurityConfig extends WebSecurityConfigurerAdapter {
-	@Value("${auth.header}")
+	@Value(HttpHeaders.AUTHORIZATION)
 	private String principalRequestHeader;
 
 	@Value("${auth.secret-key}")
