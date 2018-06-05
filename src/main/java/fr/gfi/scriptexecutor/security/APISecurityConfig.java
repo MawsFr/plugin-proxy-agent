@@ -32,7 +32,7 @@ public class APISecurityConfig extends WebSecurityConfigurerAdapter {
 			public Authentication authenticate(final Authentication authentication) throws AuthenticationException {
 				final String principal = (String) authentication.getPrincipal();
 				if (!principalRequestValue.equals(principal)) {
-					throw new BadCredentialsException("You must specify a valid token in header.");
+					throw new BadCredentialsException("You must specify a valid secret key in header.");
 				}
 				authentication.setAuthenticated(true);
 				return authentication;
