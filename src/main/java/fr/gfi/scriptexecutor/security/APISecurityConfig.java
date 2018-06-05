@@ -20,7 +20,7 @@ public class APISecurityConfig extends WebSecurityConfigurerAdapter {
 	@Value("${auth.header}")
 	private String principalRequestHeader;
 
-	@Value("${auth.token}")
+	@Value("${auth.secret-key}")
 	private String principalRequestValue;
 
 	@Override
