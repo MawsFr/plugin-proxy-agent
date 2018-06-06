@@ -19,15 +19,13 @@ import org.springframework.security.core.AuthenticationException;
 @Order(1)
 
 public class APISecurityConfig extends WebSecurityConfigurerAdapter {
-	@Value(HttpHeaders.AUTHORIZATION)
-	private String principalRequestHeader;
 
 	@Value("${auth.secret-key}")
 	private String principalRequestValue;
 
 	@Override
 	protected void configure(final HttpSecurity httpSecurity) throws Exception {
-		final APIKeyAuthFilter filter = new APIKeyAuthFilter(principalRequestHeader);
+		final APIKeyAuthFilter filter = new APIKeyAuthFilter(HttpHeaders.AUTHORIZATION);
 		filter.setAuthenticationManager(new AuthenticationManager() {
 
 			@Override
