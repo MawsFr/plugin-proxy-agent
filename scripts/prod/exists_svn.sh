@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PATH_SVN = /repos/svn/
+PATH_SVN=/repos/svn/
 
 #Verify if environment variables exists
 if [ -z "$REPOSITORY" ]; then

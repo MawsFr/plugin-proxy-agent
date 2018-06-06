@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PATH_GIT = /repos/git/
+PATH_GIT=/repos/git/
 
 #Verify if environment variables exists
 if [ -z "$REPOSITORY" ]; then
