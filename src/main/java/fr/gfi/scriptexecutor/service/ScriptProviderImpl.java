@@ -21,6 +21,8 @@ public class ScriptProviderImpl implements ScriptProvider {
 	// scripts
 	public static final String CREATE_GIT = "create_git";
 	public static final String CREATE_SVN = "create_svn";
+	public static final String EXISTS_GIT = "exists_git";
+	public static final String EXISTS_SVN = "exists_svn";
 
 	@Value("${scripts.folder}")
 	private String scriptsFolder;
@@ -35,6 +37,8 @@ public class ScriptProviderImpl implements ScriptProvider {
 	public void initScripts() {
 		addScript(new ShellScript(CREATE_GIT));
 		addScript(new ShellScript(CREATE_SVN));
+		addScript(new ShellScript(EXISTS_GIT));
+		addScript(new ShellScript(EXISTS_SVN));
 		log.info("Initialized list of script from folder {}", scriptsFolder);
 	}
 
