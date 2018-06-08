@@ -1,3 +1,6 @@
+/*
+ * Licensed under MIT (https://github.com/ligoj/ligoj/blob/master/LICENSE)
+ */
 package fr.gfi.scriptexecutor.service;
 
 import java.util.HashMap;
@@ -11,22 +14,41 @@ import fr.gfi.scriptexecutor.model.ShellScript;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * This script provider sets a map of executable script using constants.
+ */
 @Getter
 @Setter
 public class ScriptProviderImpl implements ScriptProvider {
 
+	/**
+	 * A logger.
+	 */
 	private static final Logger log = LoggerFactory.getLogger(ScriptProviderImpl.class);
 
-	// TODO : Create a ScriptExecutorContext that will contain all executable
-	// scripts
+	/**
+	 * Git repo creation script.
+	 */
 	public static final String CREATE_GIT = "create_git";
+	/**
+	 * Svn repo creation script.
+	 */
 	public static final String CREATE_SVN = "create_svn";
+	/**
+	 * Git repo existance verification script.
+	 */
 	public static final String EXISTS_GIT = "exists_git";
+	/**
+	 * Svn repo existance verification script.
+	 */
 	public static final String EXISTS_SVN = "exists_svn";
 
 	@Value("${scripts.folder}")
 	private String scriptsFolder;
 
+	/**
+	 * The Map of executable scripts.
+	 */
 	private Map<String, ShellScript> scripts;
 
 	public ScriptProviderImpl() {
@@ -34,6 +56,7 @@ public class ScriptProviderImpl implements ScriptProvider {
 		initScripts();
 	}
 
+	@Override
 	public void initScripts() {
 		addScript(new ShellScript(CREATE_GIT));
 		addScript(new ShellScript(CREATE_SVN));
@@ -43,7 +66,7 @@ public class ScriptProviderImpl implements ScriptProvider {
 	}
 
 	@Override
-	public void addScript(ShellScript script) {
+	public void addScript(final ShellScript script) {
 		scripts.put(script.getId(), script);
 	}
 

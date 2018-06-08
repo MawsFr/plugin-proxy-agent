@@ -14,38 +14,48 @@ import org.springframework.web.bind.annotation.RestController;
 import fr.gfi.scriptexecutor.exception.BusinessException;
 import fr.gfi.scriptexecutor.exception.ServiceException;
 import fr.gfi.scriptexecutor.model.ScriptContext;
-import fr.gfi.scriptexecutor.service.ScriptExecutorService;
+import fr.gfi.scriptexecutor.service.ProxyAgentService;
 
+/**
+ * An agent that executes scripts on the current host.
+ *
+ */
 @RestController("script-executor")
 @Produces(MediaType.APPLICATION_JSON)
-public class ScriptExecutorResource {
+public class ProxyAgentResource {
 
-	private static final Logger log = LoggerFactory.getLogger(ScriptExecutorResource.class);
+	/**
+	 * A logger.
+	 */
+	private static final Logger log = LoggerFactory.getLogger(ProxyAgentResource.class);
 
+	/**
+	 * The service.
+	 */
 	@Autowired
-	private ScriptExecutorService service;
+	private ProxyAgentService service;
 
+	/**
+	 * For testing that the proxy agent is running
+	 */
 	@GetMapping
 	public String hello() {
-		return "hello world";
+		return "Proxy agent running";
 	}
 
 	/**
-	 * Executes a script
+	 * Executes a script on the current host.
 	 * 
-	 * @param scriptId
-	 *            The script id
-	 * @param params
-	 *            The list of field needed by the script as env variables
-	 * @return The execution result with the error message
-	 * @throws BusinessException
+	 * @param context
+	 *            The context containing the script id and the parameters sent.
+	 * @return The exit code of the script.
 	 */
 	@PostMapping
-	public int execute(@RequestBody ScriptContext context) throws BusinessException {
-		log.info("Trying to execute the script {} with arguments : {}", context.getScriptId(), context.getArgs());
+	public int execute(@RequestBody final ScriptContext context) throws BusinessException {
+		log.info("Trying to execute the script {} with arguments : {}", context.getScriptId(), context.getParameters());
 		try {
 			return this.service.execute(context);
-		} catch (ServiceException e) {
+		} catch (final ServiceException e) {
 			throw new BusinessException(e);
 		}
 	}

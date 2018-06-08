@@ -1,6 +1,18 @@
+/*
+ * Licensed under MIT (https://github.com/ligoj/ligoj/blob/master/LICENSE)
+ */
 package fr.gfi.scriptexecutor.exception;
 
+/**
+ * A business exception.
+ *
+ */
 public class BusinessException extends Exception {
+
+	/**
+	 * SID
+	 */
+	private static final long serialVersionUID = 1L;
 
 	public BusinessException() {
 		super();

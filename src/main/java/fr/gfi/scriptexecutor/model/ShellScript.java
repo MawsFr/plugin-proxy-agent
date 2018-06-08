@@ -1,42 +1,48 @@
+/*
+ * Licensed under MIT (https://github.com/ligoj/ligoj/blob/master/LICENSE)
+ */
 package fr.gfi.scriptexecutor.model;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * An executable shell script.
+ *
+ */
 @Getter
 @Setter
 public class ShellScript {
-	private static final Logger logger = LoggerFactory.getLogger(ShellScript.class);
-	// public static final String SCRIPT_EXTENSION = ".bat";
 	public static final String SCRIPT_EXTENSION = ".sh";
 
+	/**
+	 * Id of script (name of the script without sh)
+	 */
 	protected String id;
 
+	/**
+	 * The file name (by default <id>.sh)
+	 */
 	protected String filename;
 
-	protected boolean enabled;
-
-	// TODO : add rights
+	// TODO : add rights and an attribute enabled that tells if the script is executable
 
 	/**
 	 * Default constructor
 	 * 
-	 * The script name will be automatically setted to name.sh
+	 * The script name will be automatically set to name.sh
 	 * 
 	 * @param id
 	 *            The name of the script
 	 */
-	public ShellScript(String id) {
+	public ShellScript(final String id) {
 		this(id, id + SCRIPT_EXTENSION);
 	}
 
 	/**
 	 * Default constructor
 	 * 
-	 * The script name will be automatically setted to name.sh
+	 * The script name will be automatically set to name.sh
 	 * 
 	 * @param id
 	 *            The name of the script
@@ -44,10 +50,9 @@ public class ShellScript {
 	 * @param filename
 	 *            The name of the script file to execute
 	 */
-	public ShellScript(String id, String filename) {
+	public ShellScript(final String id, final String filename) {
 		this.id = id;
 		this.filename = filename;
-		this.enabled = true;
 	}
 
 }

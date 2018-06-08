@@ -1,3 +1,6 @@
+/*
+ * Licensed under MIT (https://github.com/ligoj/ligoj/blob/master/LICENSE)
+ */
 package fr.gfi.scriptexecutor.security;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -12,14 +15,22 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 
+/**
+ * This configuration filters requests that contains the secret key set when launching the proxy agent.
+ */
 @Configuration
 @EnableWebSecurity
 @Order(1)
-
 public class APISecurityConfig extends WebSecurityConfigurerAdapter {
+	/**
+	 * The header
+	 */
 	@Value("${auth.token}")
 	private String principalRequestHeader;
 
+	/**
+	 * The secret key set
+	 */
 	@Value("${auth.secret-key}")
 	private String principalRequestValue;
 

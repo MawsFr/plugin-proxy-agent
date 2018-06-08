@@ -1,9 +1,17 @@
+/*
+ * Licensed under MIT (https://github.com/ligoj/ligoj/blob/master/LICENSE)
+ */
 package fr.gfi.scriptexecutor.exception;
 
 /**
- * TODO : Make an exception by error
+ * A service exception.
  */
 public class ServiceException extends Exception {
+
+	/**
+	 * SID
+	 */
+	private static final long serialVersionUID = 1L;
 
 	public ServiceException() {
 		super();
