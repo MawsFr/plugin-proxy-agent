@@ -1,0 +1,11 @@
+Exit codes
+
+0 : No error
+1 : Error of in script execution
+10 : Invalid parameters count
+20 : Invalid parameter + message
+
+header token
+
+https://github.com/ligoj/ligoj/blob/master/app-api/src/main/java/org/ligoj/boot/api/SecurityConfiguration.java
+https://github.com/ligoj/bootstrap/blob/0b0f2eba4c19f64e9a33bc02c948e93dd67c3421/bootstrap-business/src/main/java/org/ligoj/bootstrap/core/security/ApiTokenAuthenticationFilter.java

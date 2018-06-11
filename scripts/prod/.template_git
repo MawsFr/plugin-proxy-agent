@@ -1,0 +1,10 @@
+<Location "/git/REPOSITORY.git">
+    <Limit GET OPTIONS REPORT>
+READ_LDAP_GROUPS
+        Require ldap-group cn=git-admin,ou=git,ou=tools,dc=gfi,dc=fr
+    </Limit>
+    <Limit POST MKACTIVITY PROPPATCH PUT CHECKOUT MKCOL MOVE COPY DELETE LOCK UNLOCK MERGE>
+WRITE_LDAP_GROUPS
+        Require ldap-group cn=git-admin,ou=git,ou=tools,dc=gfi,dc=fr
+    </Limit>
+</Location>
