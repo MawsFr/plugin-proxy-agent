@@ -20,7 +20,7 @@ import fr.gfi.scriptexecutor.service.ProxyAgentService;
  * An agent that executes scripts on the current host.
  *
  */
-@RestController("script-executor")
+@RestController("proxy-agent")
 @Produces(MediaType.APPLICATION_JSON)
 public class ProxyAgentResource {
 
@@ -40,7 +40,7 @@ public class ProxyAgentResource {
 	 */
 	@GetMapping
 	public String hello() {
-		return "Proxy agent running";
+		return "Proxy agent is running";
 	}
 
 	/**

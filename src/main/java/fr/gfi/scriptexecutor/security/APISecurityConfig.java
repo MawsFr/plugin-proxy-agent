@@ -49,7 +49,7 @@ public class APISecurityConfig extends WebSecurityConfigurerAdapter {
 				return authentication;
 			}
 		});
-		httpSecurity.antMatcher("/**").csrf().disable().sessionManagement()
+		httpSecurity.authorizeRequests().antMatchers("/", "/login").permitAll().and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().addFilter(filter).authorizeRequests()
 				.anyRequest().authenticated();
 	}

@@ -23,7 +23,7 @@ import fr.gfi.scriptexecutor.service.ScriptProvider;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@SpringBootTest(classes = ScriptExecutorApplication.class)
+@SpringBootTest(classes = ProxyAgentApplication.class)
 @ActiveProfiles(ScriptExecutorApplicationTests.TEST_PROFILE)
 @Ignore
 public abstract class AbstractMvcTest {
