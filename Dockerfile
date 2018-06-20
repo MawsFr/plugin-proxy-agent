@@ -9,7 +9,8 @@ ENV SCRIPTS_FOLDER=/repos/scripts
 
 # ADD ${HOST_SCRIPTS_FOLDER} ${SCRIPTS_FOLDER}
 
-# RUN chmod +x ${SCRIPTS_FOLDER}/*.sh
+# Authorizing execution of scripts
+RUN chmod +x ${SCRIPTS_FOLDER}/*.sh
 
 # Make port 8090 available to the world outside this container
 EXPOSE 8090
