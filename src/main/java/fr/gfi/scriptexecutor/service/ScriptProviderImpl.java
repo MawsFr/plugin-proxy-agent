@@ -3,11 +3,9 @@
  */
 package fr.gfi.scriptexecutor.service;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -70,10 +68,6 @@ public class ScriptProviderImpl implements ScriptProvider {
 	@Override
 	public void addScript(final ShellScript script) {
 		scripts.put(script.getId(), script);
-		final File file = new File(StringUtils.appendIfMissing(scriptsFolder, "/") + script.getFilename());
-		file.setExecutable(true, false);
-		file.setWritable(true, false);
-		file.setReadable(true, false);
 
 	}
 
