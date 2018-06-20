@@ -11,9 +11,9 @@ REPOSITORY_PATH="$PATH_GIT/repos/$REPOSITORY.git"
 
 #verify if repository already exists
 if [ -d $REPOSITORY_PATH ]; then
-	// exists
+	# exists
 	exit 1
 else
-	//does not exist
+	# does not exist
 	exit 0
 fi
